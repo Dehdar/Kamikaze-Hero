@@ -53,3 +53,8 @@ crashlytics-build.properties
 #Resharper
 _ReSharper.*
 *.resharper
+
+# Local editor / upgrade artifacts
+.vscode/
+*.slnx
+/kh-*.log
