@@ -150,7 +150,6 @@ public class SpawnManager : MonoBehaviour
         {
             gameOver.SetActive(true);
             gameOver.transform.Find("RestartButton").gameObject.SetActive(true);
-            gameOver.transform.Find("SaveButton").gameObject.SetActive(true);
             var animator = gameOver.GetComponent<Animator>();
             animator.SetTrigger("EndGame");
         }

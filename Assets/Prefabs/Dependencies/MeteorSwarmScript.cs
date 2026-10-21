@@ -86,7 +86,7 @@ namespace DigitalRuby.PyroParticles
             Vector3 dir = (dest - src);
             Vector3 vel = dir / TimeToImpact;
             Rigidbody r = meteor.GetComponent<Rigidbody>();
-            r.velocity = vel;
+            r.linearVelocity = vel;
             float xRot = UnityEngine.Random.Range(-90.0f, 90.0f);
             float yRot = UnityEngine.Random.Range(-90.0f, 90.0f);
             float zRot = UnityEngine.Random.Range(-90.0f, 90.0f);
