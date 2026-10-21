@@ -56,7 +56,7 @@ namespace DigitalRuby.PyroParticles
 
             Vector3 dir = ProjectileDirection * ProjectileColliderSpeed;
             dir = ProjectileColliderObject.transform.rotation * dir;
-            ProjectileColliderObject.GetComponent<Rigidbody>().velocity = dir;
+            ProjectileColliderObject.GetComponent<Rigidbody>().linearVelocity = dir;
         }
 
         protected override void Start()

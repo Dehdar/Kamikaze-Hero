@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.Advertisements;
 
 
 public class MenuController : MonoBehaviour
 {
     public Text StartText;
-    public Text LeaderboardText;
     public Text AboutText;
     public Text ExitText;
     public Text BackToMenuArrowText;
     public Text RestartText;
-    public Text SaveText;
     public Statistics Statistics;
     public Image BackgroundLoader;
     public Color ClickColor;
@@ -33,6 +28,15 @@ public class MenuController : MonoBehaviour
             animator = GameObject.FindGameObjectWithTag("Menu").GetComponent<Animator>();
             internetErrorDialogue = menuGameObject.transform.Find("InternetError").gameObject;
         }
+
+        // The Facebook leaderboard was removed; hide its menu button until it is deleted from the Menu scene.
+        var leaderboardButton = GameObject.Find("LeaderboardButton");
+        if (leaderboardButton != null)
+        {
+            leaderboardButton.SetActive(false);
+        }
+
+        AdsManager.Initialize();
     }
 
     public void StartClicked()
@@ -43,35 +47,14 @@ public class MenuController : MonoBehaviour
 
     public void StartReleased()
     {
-        if ((++GameRetries % 3 == 0) && Advertisement.IsReady())
+        if (++GameRetries % 3 == 0)
         {
-            Advertisement.Show();
+            AdsManager.ShowInterstitial();
         }
        
         StartText.color = DefaultColor;
         animator.SetTrigger("InitiateGame");
         SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
-    }
-
-    public void LeaderboardClicked()
-    {
-        LeaderboardText.color = ClickColor;
-    }
-
-    public void LeaderboardReleased()
-    {
-        LeaderboardText.color = DefaultColor;
-        StartCoroutine(CheckInternetConnection(isConnected =>
-        {
-            if (isConnected)
-            {
-                SceneManager.LoadScene("Leaderboard", LoadSceneMode.Single);
-            }
-            else
-            {
-                OpenInternetErrorDialogue();
-            }
-        }));
     }
 
     public void AboutClicked()
@@ -115,50 +98,16 @@ public class MenuController : MonoBehaviour
     public void RestartTextReleased()
     {
         BackgroundMover.Reset();
-        if ((++GameRetries % 3 == 0) && Advertisement.IsReady())
+        if (++GameRetries % 3 == 0)
         {
-            Advertisement.Show();
+            AdsManager.ShowInterstitial();
         }
         RestartText.color = DefaultColor;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-    public void SaveTextClicked()
-    {
-        SaveText.color = ClickColor;
-    }
-
-    public void SaveTextReleased()
-    {
-        SaveText.color = DefaultColor;
-        StartCoroutine(CheckInternetConnection(isConnected =>
-        {
-            if (isConnected)
-            {
-                PlayerPrefs.SetInt("Score", Statistics.Score);
-                SceneManager.LoadScene("Leaderboard", LoadSceneMode.Single);
-            }
-            else
-            {
-                OpenInternetErrorDialogue();
-            }
-        }));
-    }
-
     public void CloseInternetErrorDialogue()
     {
         internetErrorDialogue.SetActive(false);
-    }
-
-    private void OpenInternetErrorDialogue()
-    {
-        internetErrorDialogue.SetActive(true);
-    }
-
-    IEnumerator CheckInternetConnection(Action<bool> action)
-    {
-        WWW www = new WWW("https://www.google.com/");
-        yield return www;
-        action(www.error == null);
     }
 }
