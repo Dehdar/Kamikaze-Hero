@@ -150,12 +150,6 @@ public class SpawnManager : MonoBehaviour
         {
             gameOver.SetActive(true);
             gameOver.transform.Find("RestartButton").gameObject.SetActive(true);
-            // The Facebook leaderboard was removed, so there is nowhere to save the score to.
-            var saveButton = gameOver.transform.Find("SaveButton");
-            if (saveButton != null)
-            {
-                saveButton.gameObject.SetActive(false);
-            }
             var animator = gameOver.GetComponent<Animator>();
             animator.SetTrigger("EndGame");
         }

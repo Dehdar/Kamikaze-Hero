@@ -71,7 +71,7 @@ namespace DigitalRuby.PyroParticles
     /// </summary>
     public class FireConstantBaseScript : FireBaseScript
     {
-        [HideInInspector]
+        [System.NonSerialized]
         public LoopingAudioSource LoopingAudioSource;
 
         protected override void Awake()

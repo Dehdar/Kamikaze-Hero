@@ -29,13 +29,6 @@ public class MenuController : MonoBehaviour
             internetErrorDialogue = menuGameObject.transform.Find("InternetError").gameObject;
         }
 
-        // The Facebook leaderboard was removed; hide its menu button until it is deleted from the Menu scene.
-        var leaderboardButton = GameObject.Find("LeaderboardButton");
-        if (leaderboardButton != null)
-        {
-            leaderboardButton.SetActive(false);
-        }
-
         AdsManager.Initialize();
     }
 
