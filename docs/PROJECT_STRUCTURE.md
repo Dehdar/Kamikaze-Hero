@@ -30,12 +30,12 @@ Unity and ignored by git.
 | `Scene/` | The three scenes and their lighting settings |
 | `Scripts/` | All game code (plain `MonoBehaviour` scripts, no assembly definitions) |
 | `Prefabs/` | The player, enemies, bullets, explosions and the kamikaze weapon |
-| `Prefabs/Dependencies/` | 3D models used by the prefabs, plus the third-party fire-effects scripts |
+| `Models/` | Generated 3D models for the plane and missiles |
 | `Animation/` | Animator controllers and clips for the menu, wave banner and game-over screen |
 | `Materials/` | Materials and one custom additive shader |
 | `Textures/` | Textures, UI images and particle sprite sheets |
 | `Sounds/` | Music and sound effects |
-| `Fonts/` | The UI font |
+| `Fonts/` | The UI font (Bangers) and its license |
 
 Third-party content is listed in [CREDITS.md](../CREDITS.md).
 
