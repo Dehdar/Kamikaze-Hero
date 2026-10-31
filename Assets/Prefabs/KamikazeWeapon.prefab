@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 423882}
   - component: {fileID: 11444152}
   - component: {fileID: 8229636}
-  - component: {fileID: 11450062}
   m_Layer: 8
   m_Name: KamikazeWeapon
   m_TagString: Untagged
@@ -46,17 +45,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 131164}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb4b036759befb44adb7543192710db, type: 3}
+  m_Script: {fileID: 11500000, guid: 69eb2e828ab944efb0a1769f5c07c0d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 0}
-  StartTime: 0.25
-  StopTime: 0.5
+  FadeInTime: 0.25
   Duration: 0.35
+  FadeOutTime: 0.5
+  CleanupDelay: 2
   ForceAmount: 2500
   ForceRadius: 10
-  IsProjectile: 0
-  ManualParticleSystems: []
 --- !u!82 &8229636
 AudioSource:
   m_ObjectHideFlags: 0
@@ -154,23 +151,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &11450062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 131164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b85cb039b6d149f46b051488d2465561, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Seed: 0
-  IntensityModifier: 2
-  IntensityMaxRange:
-    Minimum: 0
-    Maximum: 8
 --- !u!1 &156142
 GameObject:
   m_ObjectHideFlags: 0
