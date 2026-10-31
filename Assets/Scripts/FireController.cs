@@ -1,27 +1,32 @@
-﻿using UnityEngine;
+using UnityEngine;
 
+/// <summary>
+/// Tracks whether the on-screen fire button is held (wired via EventTrigger in the Game scene).
+/// </summary>
 public class FireController : MonoBehaviour
 {
-  public bool IsFirstTouchFire;
-  private bool touched;
+    // True when the fire button was pressed with the first finger, so PlayerMovement
+    // knows to read movement from the second touch instead.
+    public bool IsFirstTouchFire;
+    private bool touched;
 
-  public void OnPointerDown()
-  {
-    if (Input.touchCount == 1)
+    public void OnPointerDown()
     {
-      IsFirstTouchFire = true;
+        if (Input.touchCount == 1)
+        {
+            IsFirstTouchFire = true;
+        }
+        touched = true;
     }
-    touched = true;
-  }
 
-  public void OnPointerUp()
-  {
-    IsFirstTouchFire = false;
-    touched = false;
-  }
+    public void OnPointerUp()
+    {
+        IsFirstTouchFire = false;
+        touched = false;
+    }
 
-  public bool IsFirePressed()
-  {
-    return touched;
-  }
+    public bool IsFirePressed()
+    {
+        return touched;
+    }
 }

@@ -1,7 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player weapons: fires 3-shot bursts while the fire button is held, and launches the
+/// kamikaze weapon (with a cooldown) from the kamikaze button.
+/// </summary>
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject AircraftBody;
@@ -17,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     private float shootDelayTime;
     private float burstDelayTime;
     private float lightDurationTime = 0.2f;
-    private Light GunBarrelRightLight;
+    private Light gunBarrelLight;
     private FireController fireController;
     private int burstCapacity;
     private int shotsFired;
@@ -30,10 +34,10 @@ public class PlayerAttack : MonoBehaviour
         boxColliders = GetComponentsInParent<BoxCollider>();
         shootDelayTime = Time.time;
         burstDelayTime = Time.time;
-        GunBarrelRightLight = GunBarrelRight.GetComponent<Light>();
-        fireController = (FireController)GameObject.FindGameObjectWithTag("FireController").GetComponent("FireController");
-        kamikazeController = (KamikazeController)GameObject.FindGameObjectWithTag("KamikazeController").GetComponent("KamikazeController");
-        buttonLoader = (ButtonLoader)GameObject.FindGameObjectWithTag("KamikazeButton").GetComponent("ButtonLoader");
+        gunBarrelLight = GunBarrelRight.GetComponent<Light>();
+        fireController = GameObject.FindGameObjectWithTag(Tags.FireController).GetComponent<FireController>();
+        kamikazeController = GameObject.FindGameObjectWithTag(Tags.KamikazeController).GetComponent<KamikazeController>();
+        buttonLoader = GameObject.FindGameObjectWithTag(Tags.KamikazeButton).GetComponent<ButtonLoader>();
     }
 
     void Update()
@@ -72,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void KamikazeShoot()
     {
+        // Briefly disable the player's colliders so the kamikaze weapon does not hit the player.
         SetColliders(false);
         Instantiate(KamikazeWeaponPrefab, AircraftBody.transform.position, AircraftBody.transform.rotation);
         StartCoroutine(EnableColliders());
@@ -100,12 +105,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void EnableLightEffect()
     {
-        GunBarrelRightLight.enabled = true;
+        gunBarrelLight.enabled = true;
     }
 
     private void DisableLightEffect()
     {
-        GunBarrelRightLight.enabled = false;
+        gunBarrelLight.enabled = false;
     }
 
     private void Reload()

@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 
+/// <summary>
+/// Holds whether the player is still alive; other scripts query it.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     private bool isPlayerAlive;

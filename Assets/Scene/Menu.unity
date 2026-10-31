@@ -539,19 +539,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 301985228}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &301985228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,7 +1864,6 @@ MonoBehaviour:
   ExitText: {fileID: 230077639}
   BackToMenuArrowText: {fileID: 0}
   RestartText: {fileID: 0}
-  Statistics: {fileID: 0}
   BackgroundLoader: {fileID: 516071933}
   ClickColor: {r: 0.88235295, g: 0.8627451, b: 0.23921569, a: 1}
   DefaultColor: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 1}

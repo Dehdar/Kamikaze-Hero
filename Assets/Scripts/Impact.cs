@@ -1,44 +1,50 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Put on enemies: handles being hit by a bullet (score + explosion) or hitting the player (game over).
+/// </summary>
 public class Impact : MonoBehaviour
 {
-  public GameObject ExplosionAnimation;
-  public GameObject PlayerExplosionAnmiation;
-  public int Score;
-  private GameManager gameManager;
-  private PlayerScore playerScore;
+    public GameObject ExplosionAnimation;
+    // FormerlySerializedAs keeps prefabs saved with the old misspelled name working.
+    [FormerlySerializedAs("PlayerExplosionAnmiation")]
+    public GameObject PlayerExplosionAnimation;
+    public int Score;
+    private GameManager gameManager;
+    private PlayerScore playerScore;
 
-  void Start()
-  {
-    gameManager = (GameManager)GameObject.FindGameObjectWithTag("GameManager").GetComponent("GameManager");
-    if (gameManager.IsPlayerAlive())
+    void Start()
     {
-      playerScore = (PlayerScore)GameObject.FindGameObjectWithTag("Player").GetComponent("PlayerScore");
-    }
-  }
-
-  void OnTriggerEnter(Collider other)
-  {
-    if (other.tag == "Border" || other.tag == "Missile" || other.tag == "GuidedMissile" || other.tag == "MultiMissile")
-    {
-      return;
+        gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
+        if (gameManager.IsPlayerAlive())
+        {
+            playerScore = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<PlayerScore>();
+        }
     }
 
-    if (other.tag == "Bullet")
+    void OnTriggerEnter(Collider other)
     {
-      playerScore.SetPlayerScore(Score);
-      var animationObject = Instantiate(ExplosionAnimation, other.transform.position, other.transform.rotation);
-      Destroy(animationObject, 2f);
-    }
+        if (other.CompareTag(Tags.Border) || other.CompareTag(Tags.Missile) || other.CompareTag(Tags.GuidedMissile) || other.CompareTag(Tags.MultiMissile))
+        {
+            return;
+        }
 
-    if (other.tag == "Player")
-    {
-      var animationObject = Instantiate(PlayerExplosionAnmiation, other.transform.position, other.transform.rotation);
-      Destroy(animationObject, 2f);
-      gameManager.KillPlayer();
-    }
+        if (other.CompareTag(Tags.Bullet))
+        {
+            playerScore.AddScore(Score);
+            var animationObject = Instantiate(ExplosionAnimation, other.transform.position, other.transform.rotation);
+            Destroy(animationObject, 2f);
+        }
 
-    Destroy(other.gameObject);
-    Destroy(gameObject);
-  }
+        if (other.CompareTag(Tags.Player))
+        {
+            var animationObject = Instantiate(PlayerExplosionAnimation, other.transform.position, other.transform.rotation);
+            Destroy(animationObject, 2f);
+            gameManager.KillPlayer();
+        }
+
+        Destroy(other.gameObject);
+        Destroy(gameObject);
+    }
 }

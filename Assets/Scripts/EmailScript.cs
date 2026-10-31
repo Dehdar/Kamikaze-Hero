@@ -1,22 +1,26 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 
-public class EmailScript : MonoBehaviour {
+/// <summary>
+/// Opens the player's mail app with a pre-filled message to the developer
+/// (wired to the contact button in the About scene).
+/// </summary>
+public class EmailScript : MonoBehaviour
+{
+    // Change these in the inspector if you publish your own version of the game.
+    public string ContactAddress = "kamikazehero@dehdar.net";
+    public string Subject = "Kamikaze Hero";
+
     public void SendEmail()
     {
-        string email = "kamikazehero@dehdar.net";
-        string subject = MyEscapeURL("Kamikaze Hero");
-        string body = MyEscapeURL("");
-        Application.OpenURL("mailto:" + email + "?subject=" + subject + "&body=" + body);
+        var subject = EscapeForMailto(Subject);
+        var body = EscapeForMailto("");
+        Application.OpenURL("mailto:" + ContactAddress + "?subject=" + subject + "&body=" + body);
     }
-    string MyEscapeURL(string url)
+
+    // EscapeURL encodes spaces as "+", which mail apps show literally; mailto needs "%20".
+    private static string EscapeForMailto(string text)
     {
-        return UnityWebRequest.EscapeURL(url).Replace("+", "%20");
+        return UnityWebRequest.EscapeURL(text).Replace("+", "%20");
     }
-
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

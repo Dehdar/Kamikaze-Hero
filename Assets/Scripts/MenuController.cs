@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Button handlers for the Menu, About and Game-over screens (wired via EventTrigger in each scene).
+/// The *Clicked methods highlight the label on press; the *Released methods act on release.
+/// </summary>
 public class MenuController : MonoBehaviour
 {
     public Text StartText;
@@ -10,22 +13,25 @@ public class MenuController : MonoBehaviour
     public Text ExitText;
     public Text BackToMenuArrowText;
     public Text RestartText;
-    public Statistics Statistics;
     public Image BackgroundLoader;
     public Color ClickColor;
     public Color DefaultColor;
     public BackgroundMover BackgroundMover;
     private Animator animator;
     private GameObject internetErrorDialogue;
-    public static int GameRetries = 0;
+
+    // Show an interstitial ad on every third game started (from the menu or via restart).
+    // Static so the count survives scene loads.
+    private const int GamesPerInterstitial = 3;
+    private static int gamesStarted;
 
     void Start()
     {
-        internetErrorDialogue = GameObject.FindGameObjectWithTag("InternetErrorDialogue");
-        var menuGameObject = GameObject.FindGameObjectWithTag("Menu");
+        internetErrorDialogue = GameObject.FindGameObjectWithTag(Tags.InternetErrorDialogue);
+        var menuGameObject = GameObject.FindGameObjectWithTag(Tags.Menu);
         if (menuGameObject != null)
         {
-            animator = GameObject.FindGameObjectWithTag("Menu").GetComponent<Animator>();
+            animator = menuGameObject.GetComponent<Animator>();
             internetErrorDialogue = menuGameObject.transform.Find("InternetError").gameObject;
         }
 
@@ -40,14 +46,10 @@ public class MenuController : MonoBehaviour
 
     public void StartReleased()
     {
-        if (++GameRetries % 3 == 0)
-        {
-            AdsManager.ShowInterstitial();
-        }
-       
+        CountGameAndMaybeShowAd();
         StartText.color = DefaultColor;
         animator.SetTrigger("InitiateGame");
-        SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Single);
     }
 
     public void AboutClicked()
@@ -58,7 +60,7 @@ public class MenuController : MonoBehaviour
     public void AboutReleased()
     {
         AboutText.color = DefaultColor;
-        SceneManager.LoadScene("About", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneNames.About, LoadSceneMode.Single);
     }
 
     public void ExitClicked()
@@ -80,7 +82,7 @@ public class MenuController : MonoBehaviour
     public void BackToMenuArrowTextReleased()
     {
         BackToMenuArrowText.color = DefaultColor;
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneNames.Menu, LoadSceneMode.Single);
     }
 
     public void RestartTextClicked()
@@ -91,12 +93,18 @@ public class MenuController : MonoBehaviour
     public void RestartTextReleased()
     {
         BackgroundMover.Reset();
-        if (++GameRetries % 3 == 0)
+        CountGameAndMaybeShowAd();
+        RestartText.color = DefaultColor;
+        SceneManager.LoadScene(SceneNames.Game, LoadSceneMode.Single);
+    }
+
+    private static void CountGameAndMaybeShowAd()
+    {
+        gamesStarted++;
+        if (gamesStarted % GamesPerInterstitial == 0)
         {
             AdsManager.ShowInterstitial();
         }
-        RestartText.color = DefaultColor;
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
     public void CloseInternetErrorDialogue()
