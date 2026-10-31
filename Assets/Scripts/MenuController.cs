@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
 public class MenuController : MonoBehaviour
 {
     public Text StartText;
@@ -10,14 +9,17 @@ public class MenuController : MonoBehaviour
     public Text ExitText;
     public Text BackToMenuArrowText;
     public Text RestartText;
-    public Statistics Statistics;
     public Image BackgroundLoader;
     public Color ClickColor;
     public Color DefaultColor;
     public BackgroundMover BackgroundMover;
     private Animator animator;
     private GameObject internetErrorDialogue;
-    public static int GameRetries = 0;
+
+    // Show an interstitial ad on every third game started (from the menu or via restart).
+    // Static so the count survives scene loads.
+    private const int GamesPerInterstitial = 3;
+    private static int gamesStarted;
 
     void Start()
     {
@@ -25,7 +27,7 @@ public class MenuController : MonoBehaviour
         var menuGameObject = GameObject.FindGameObjectWithTag(Tags.Menu);
         if (menuGameObject != null)
         {
-            animator = GameObject.FindGameObjectWithTag(Tags.Menu).GetComponent<Animator>();
+            animator = menuGameObject.GetComponent<Animator>();
             internetErrorDialogue = menuGameObject.transform.Find("InternetError").gameObject;
         }
 
@@ -40,11 +42,7 @@ public class MenuController : MonoBehaviour
 
     public void StartReleased()
     {
-        if (++GameRetries % 3 == 0)
-        {
-            AdsManager.ShowInterstitial();
-        }
-
+        CountGameAndMaybeShowAd();
         StartText.color = DefaultColor;
         animator.SetTrigger("InitiateGame");
         SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Single);
@@ -91,12 +89,18 @@ public class MenuController : MonoBehaviour
     public void RestartTextReleased()
     {
         BackgroundMover.Reset();
-        if (++GameRetries % 3 == 0)
+        CountGameAndMaybeShowAd();
+        RestartText.color = DefaultColor;
+        SceneManager.LoadScene(SceneNames.Game, LoadSceneMode.Single);
+    }
+
+    private static void CountGameAndMaybeShowAd()
+    {
+        gamesStarted++;
+        if (gamesStarted % GamesPerInterstitial == 0)
         {
             AdsManager.ShowInterstitial();
         }
-        RestartText.color = DefaultColor;
-        SceneManager.LoadScene(SceneNames.Game, LoadSceneMode.Single);
     }
 
     public void CloseInternetErrorDialogue()
