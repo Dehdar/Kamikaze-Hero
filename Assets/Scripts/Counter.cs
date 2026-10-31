@@ -9,7 +9,7 @@ public class Counter : MonoBehaviour
 
     void Start()
     {
-        gameManager = (GameManager)GameObject.FindGameObjectWithTag("GameManager").GetComponent("GameManager");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         counterText = gameObject.GetComponent<Text>();
     }
 

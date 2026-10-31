@@ -12,8 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        fireController = (FireController)GameObject.FindGameObjectWithTag("FireController").GetComponent("FireController");
-        kamikazeController = (KamikazeController)GameObject.FindGameObjectWithTag("KamikazeController").GetComponent("KamikazeController");
+        fireController = GameObject.FindGameObjectWithTag("FireController").GetComponent<FireController>();
+        kamikazeController = GameObject.FindGameObjectWithTag("KamikazeController").GetComponent<KamikazeController>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
 

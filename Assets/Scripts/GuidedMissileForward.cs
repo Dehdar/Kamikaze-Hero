@@ -14,7 +14,7 @@ public class GuidedMissileForward : MonoBehaviour
     {
         tolerence = 0.1f;
         missileRigidbody = GetComponent<Rigidbody>();
-        gameManager = (GameManager)GameObject.FindGameObjectWithTag("GameManager").GetComponent("GameManager");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag("Player");
         if (gameManager.IsPlayerAlive())
         {

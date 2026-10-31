@@ -10,10 +10,10 @@ public class Impact : MonoBehaviour
 
     void Start()
     {
-        gameManager = (GameManager)GameObject.FindGameObjectWithTag("GameManager").GetComponent("GameManager");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         if (gameManager.IsPlayerAlive())
         {
-            playerScore = (PlayerScore)GameObject.FindGameObjectWithTag("Player").GetComponent("PlayerScore");
+            playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>();
         }
     }
 

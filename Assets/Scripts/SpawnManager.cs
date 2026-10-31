@@ -24,8 +24,8 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         waveNumber = 1;
-        waveAnimator = (Animator)GameObject.FindGameObjectWithTag("Menu").GetComponent("Animator");
-        gameManager = (GameManager)GameObject.FindGameObjectWithTag("GameManager").GetComponent("GameManager");
+        waveAnimator = GameObject.FindGameObjectWithTag("Menu").GetComponent<Animator>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         WaveNumberText.text = "WAVE " + waveNumber + "/" + MaxWaves;
         waveAnimator.SetTrigger("DisplayWave");
         StartCoroutine(SpawnWaves());
