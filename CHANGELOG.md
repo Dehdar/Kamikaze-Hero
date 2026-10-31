@@ -18,10 +18,30 @@ Preparing the repository so anyone can learn from it or build on it.
 - Project structure guide (`docs/PROJECT_STRUCTURE.md`).
 - `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md` and `SECURITY.md`.
 - This changelog.
+- Python scripts in `Tools/AssetGenerators/` that generate the game's own
+  particle textures, sound effects, 3D models and pictures, so every asset
+  except the music and the font is original work under the MIT license.
+- `KamikazeBlast`, a small script that plays the Kamikaze weapon's blast.
+
+### Changed
+- New low-poly models for the player's biplane, the three missile types and
+  the bullet, fitted to the existing colliders and moving parts.
+- New sound effects for the gun, engines, missiles and explosions.
+- New particle textures for fire, sparks, smoke, debris and missile exhaust.
+- New sky backgrounds, app icon, Kamikaze button and missile flag texture.
+- The UI font is now Bangers (SIL Open Font License).
+- Plane and missile materials use plain colours with the Standard shader
+  instead of photo textures.
 
 ### Removed
 - `License.txt`, which only held two credit lines. They now live in
   `CREDITS.md`.
+- Every third-party asset I was not allowed to redistribute: the paid
+  PyroParticles effects pack (scripts, textures, materials, shader and
+  sounds), the "My Epic Selfie Demo" font, five downloaded 3D models,
+  stock photos, clip art and sound effects. This also shrinks the project
+  by about 70 MB.
+- Unused leftovers: orphaned materials and textures and the Debris prefab.
 
 ## Unity 6 migration – 2026-10-21
 
