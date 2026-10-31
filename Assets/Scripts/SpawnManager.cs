@@ -24,8 +24,8 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         waveNumber = 1;
-        waveAnimator = GameObject.FindGameObjectWithTag("Menu").GetComponent<Animator>();
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        waveAnimator = GameObject.FindGameObjectWithTag(Tags.Menu).GetComponent<Animator>();
+        gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
         WaveNumberText.text = "WAVE " + waveNumber + "/" + MaxWaves;
         waveAnimator.SetTrigger("DisplayWave");
         StartCoroutine(SpawnWaves());
@@ -83,7 +83,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SetScore(bool survived)
     {
-        var menu = GameObject.FindGameObjectWithTag("Menu");
+        var menu = GameObject.FindGameObjectWithTag(Tags.Menu);
         var gameOver = menu.transform.Find("GameOver").gameObject;
         gameOver.transform.Find("GameOverText").GetComponent<Text>().text = survived ? "Game Complete" : "Game Over";
         gameOver.transform.Find("GameOverScore").GetComponent<Text>().text = ResolveScore();
@@ -144,7 +144,7 @@ public class SpawnManager : MonoBehaviour
 
     private static void AnimateEndGame()
     {
-        var menu = GameObject.FindGameObjectWithTag("Menu");
+        var menu = GameObject.FindGameObjectWithTag(Tags.Menu);
         var gameOver = menu.transform.Find("GameOver").gameObject;
         if (gameOver != null)
         {
@@ -197,31 +197,31 @@ public class SpawnManager : MonoBehaviour
     {
         if (horizontalSpace == HorizontalSpace.Full)
         {
-            if (((GameObject)enemy).tag == "Missile")
+            if (((GameObject)enemy).CompareTag(Tags.Missile))
                 return Random.Range(-4.19f, 5.15f);
-            if (((GameObject)enemy).tag == "GuidedMissile")
+            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
                 return Random.Range(-4.83f, 4.56f);
-            if (((GameObject)enemy).tag == "MultiMissile")
+            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
                 return Random.Range(-4.60f, 3.25f);
         }
 
         if (horizontalSpace == HorizontalSpace.Up)
         {
-            if (((GameObject)enemy).tag == "Missile")
+            if (((GameObject)enemy).CompareTag(Tags.Missile))
                 return Random.Range(0.48f, 5.15f);
-            if (((GameObject)enemy).tag == "GuidedMissile")
+            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
                 return Random.Range(-0.135f, 4.56f);
-            if (((GameObject)enemy).tag == "MultiMissile")
+            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
                 return Random.Range(-0.675f, 3.25f);
         }
 
         if (horizontalSpace == HorizontalSpace.Down)
         {
-            if (((GameObject)enemy).tag == "Missile")
+            if (((GameObject)enemy).CompareTag(Tags.Missile))
                 return Random.Range(-4.19f, 0.48f);
-            if (((GameObject)enemy).tag == "GuidedMissile")
+            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
                 return Random.Range(-4.83f, -0.135f);
-            if (((GameObject)enemy).tag == "MultiMissile")
+            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
                 return Random.Range(-4.60f, -0.675f);
         }
 

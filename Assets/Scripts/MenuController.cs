@@ -21,11 +21,11 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        internetErrorDialogue = GameObject.FindGameObjectWithTag("InternetErrorDialogue");
-        var menuGameObject = GameObject.FindGameObjectWithTag("Menu");
+        internetErrorDialogue = GameObject.FindGameObjectWithTag(Tags.InternetErrorDialogue);
+        var menuGameObject = GameObject.FindGameObjectWithTag(Tags.Menu);
         if (menuGameObject != null)
         {
-            animator = GameObject.FindGameObjectWithTag("Menu").GetComponent<Animator>();
+            animator = GameObject.FindGameObjectWithTag(Tags.Menu).GetComponent<Animator>();
             internetErrorDialogue = menuGameObject.transform.Find("InternetError").gameObject;
         }
 
@@ -47,7 +47,7 @@ public class MenuController : MonoBehaviour
 
         StartText.color = DefaultColor;
         animator.SetTrigger("InitiateGame");
-        SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);
+        SceneManager.LoadSceneAsync(SceneNames.Game, LoadSceneMode.Single);
     }
 
     public void AboutClicked()
@@ -58,7 +58,7 @@ public class MenuController : MonoBehaviour
     public void AboutReleased()
     {
         AboutText.color = DefaultColor;
-        SceneManager.LoadScene("About", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneNames.About, LoadSceneMode.Single);
     }
 
     public void ExitClicked()
@@ -80,7 +80,7 @@ public class MenuController : MonoBehaviour
     public void BackToMenuArrowTextReleased()
     {
         BackToMenuArrowText.color = DefaultColor;
-        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneNames.Menu, LoadSceneMode.Single);
     }
 
     public void RestartTextClicked()
@@ -96,7 +96,7 @@ public class MenuController : MonoBehaviour
             AdsManager.ShowInterstitial();
         }
         RestartText.color = DefaultColor;
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneNames.Game, LoadSceneMode.Single);
     }
 
     public void CloseInternetErrorDialogue()

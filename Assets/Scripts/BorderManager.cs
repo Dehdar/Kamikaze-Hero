@@ -6,12 +6,12 @@ public class BorderManager : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "GuidedMissile" || other.gameObject.tag == "Missile")
+        if (other.gameObject.CompareTag(Tags.GuidedMissile) || other.gameObject.CompareTag(Tags.Missile))
         {
             Statistics.EnemiesMissed += 1;
         }
 
-        if (other.gameObject.tag == "MultiMissile")
+        if (other.gameObject.CompareTag(Tags.MultiMissile))
         {
             Statistics.EnemiesMissed += 1/6f;
             Destroy(other.transform.parent.gameObject);

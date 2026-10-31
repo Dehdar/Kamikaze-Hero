@@ -27,13 +27,13 @@ public class AudioController : MonoBehaviour
     {
         while (true)
         {
-            if (isAudioPlaying && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game") && SpawnManager.PlayMusic == false)
+            if (isAudioPlaying && SceneManager.GetActiveScene().name == SceneNames.Game && SpawnManager.PlayMusic == false)
             {
                 audioSource.Stop();
                 isAudioPlaying = false;
             }
 
-            if (!isAudioPlaying && (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Game") || SpawnManager.PlayMusic == true))
+            if (!isAudioPlaying && (SceneManager.GetActiveScene().name != SceneNames.Game || SpawnManager.PlayMusic == true))
             {
                 audioSource.Play();
                 isAudioPlaying = true;

@@ -31,9 +31,9 @@ public class PlayerAttack : MonoBehaviour
         shootDelayTime = Time.time;
         burstDelayTime = Time.time;
         GunBarrelRightLight = GunBarrelRight.GetComponent<Light>();
-        fireController = GameObject.FindGameObjectWithTag("FireController").GetComponent<FireController>();
-        kamikazeController = GameObject.FindGameObjectWithTag("KamikazeController").GetComponent<KamikazeController>();
-        buttonLoader = GameObject.FindGameObjectWithTag("KamikazeButton").GetComponent<ButtonLoader>();
+        fireController = GameObject.FindGameObjectWithTag(Tags.FireController).GetComponent<FireController>();
+        kamikazeController = GameObject.FindGameObjectWithTag(Tags.KamikazeController).GetComponent<KamikazeController>();
+        buttonLoader = GameObject.FindGameObjectWithTag(Tags.KamikazeButton).GetComponent<ButtonLoader>();
     }
 
     void Update()

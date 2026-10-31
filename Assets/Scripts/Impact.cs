@@ -10,28 +10,28 @@ public class Impact : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
         if (gameManager.IsPlayerAlive())
         {
-            playerScore = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScore>();
+            playerScore = GameObject.FindGameObjectWithTag(Tags.Player).GetComponent<PlayerScore>();
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Border" || other.tag == "Missile" || other.tag == "GuidedMissile" || other.tag == "MultiMissile")
+        if (other.CompareTag(Tags.Border) || other.CompareTag(Tags.Missile) || other.CompareTag(Tags.GuidedMissile) || other.CompareTag(Tags.MultiMissile))
         {
             return;
         }
 
-        if (other.tag == "Bullet")
+        if (other.CompareTag(Tags.Bullet))
         {
             playerScore.SetPlayerScore(Score);
             var animationObject = Instantiate(ExplosionAnimation, other.transform.position, other.transform.rotation);
             Destroy(animationObject, 2f);
         }
 
-        if (other.tag == "Player")
+        if (other.CompareTag(Tags.Player))
         {
             var animationObject = Instantiate(PlayerExplosionAnmiation, other.transform.position, other.transform.rotation);
             Destroy(animationObject, 2f);
