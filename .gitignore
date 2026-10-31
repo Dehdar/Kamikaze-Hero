@@ -62,3 +62,6 @@ _ReSharper.*
 # Personal Unity Ads game IDs (see Assets/Scripts/UnityAdsSettings.cs)
 /Assets/Resources/UnityAdsSettings.asset
 /Assets/Resources/UnityAdsSettings.asset.meta
+
+# Python bytecode from the asset generators in Tools/
+__pycache__/
