@@ -11,7 +11,7 @@ after what they did. The in-game bundle version is still `1.0.1.1`.
 Preparing the repository so anyone can learn from it or build on it.
 
 ### Added
-- MIT license (`LICENSE`): free to use in any context, with credit to Ali.
+- MIT license (`LICENSE`): free to use in any context, with credit to me.
 - `CREDITS.md` listing third-party content and its licenses.
 - `README.md` explaining why the project is public, how to play, and how to
   open and build it.
@@ -75,6 +75,6 @@ earlier git history.
 - Touch controls for movement, fire and kamikaze, with multi-touch support.
 - In-game score and timer, and an end-of-game report with kills, misses,
   accuracy, wave reached and a nine-level verdict from "n00b" to "GOD".
-- Main menu, About screen with a message from Ali, credits and an email link.
+- Main menu, About screen with a message from me, credits and an email link.
 - Facebook login, score posting and a friends leaderboard.
 - Unity Ads interstitial every third game, and a "no internet" dialog.
