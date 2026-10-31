@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Button handlers for the Menu, About and Game-over screens (wired via EventTrigger in each scene).
+/// The *Clicked methods highlight the label on press; the *Released methods act on release.
+/// </summary>
 public class MenuController : MonoBehaviour
 {
     public Text StartText;

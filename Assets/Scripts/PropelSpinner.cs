@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Spins the aircraft propeller.
+/// </summary>
 public class PropelSpinner : MonoBehaviour
 {
     public int Speed;

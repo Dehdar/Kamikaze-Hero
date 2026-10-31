@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Plays the background music across scenes (kept alive with DontDestroyOnLoad).
+/// The music is muted in the Game scene while waves are running (see SpawnManager.PlayMusic).
+/// </summary>
 public class AudioController : MonoBehaviour
 {
     private GameObject audioComponent;

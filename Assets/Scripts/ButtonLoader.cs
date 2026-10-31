@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Cooldown animation for the kamikaze button: the radial fill empties, then refills.
+/// </summary>
 public class ButtonLoader : MonoBehaviour
 {
     public float LoadTime;

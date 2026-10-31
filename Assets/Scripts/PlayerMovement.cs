@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Moves the player: arrow keys/WASD in the editor, touch-drag on Android.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     public int MovementSpeed;
@@ -24,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
 #endif
 
 #if UNITY_ANDROID
+        // Move with the one finger that is not holding the fire or kamikaze button:
+        // one touch and no button held, two touches and one button held, or three touches.
         if (Input.touchCount == 3 ||
             (Input.touchCount == 2 && !fireController.IsFirePressed() && kamikazeController.IsKamikazeFireTouched()) ||
             (Input.touchCount == 2 && fireController.IsFirePressed() && !kamikazeController.IsKamikazeFireTouched()) ||

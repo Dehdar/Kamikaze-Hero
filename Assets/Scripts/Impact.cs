@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Put on enemies: handles being hit by a bullet (score + explosion) or hitting the player (game over).
+/// </summary>
 public class Impact : MonoBehaviour
 {
     public GameObject ExplosionAnimation;

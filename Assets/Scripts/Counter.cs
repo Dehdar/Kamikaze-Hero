@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Shows how many seconds the player has survived.
+/// </summary>
 public class Counter : MonoBehaviour
 {
     private GameManager gameManager;

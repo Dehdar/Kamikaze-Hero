@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Moves a player bullet straight to the right.
+/// </summary>
 public class Bullet : MonoBehaviour
 {
     public int Speed;

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// One missile of a MultiMissiles group: flies left with a vertical drift while spinning.
+/// </summary>
 public class MultiMissileForward : MonoBehaviour
 {
     public int Speed;

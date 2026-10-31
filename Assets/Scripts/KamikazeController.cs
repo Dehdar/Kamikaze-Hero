@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Tracks whether the on-screen kamikaze button is held (wired via EventTrigger in the Game scene).
+/// </summary>
 public class KamikazeController : MonoBehaviour
 {
     public bool IsKamikazeFire;

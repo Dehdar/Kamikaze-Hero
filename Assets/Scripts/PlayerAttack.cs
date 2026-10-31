@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player weapons: fires 3-shot bursts while the fire button is held, and launches the
+/// kamikaze weapon (with a cooldown) from the kamikaze button.
+/// </summary>
 public class PlayerAttack : MonoBehaviour
 {
     public GameObject AircraftBody;
@@ -72,6 +76,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void KamikazeShoot()
     {
+        // Briefly disable the player's colliders so the kamikaze weapon does not hit the player.
         SetColliders(false);
         Instantiate(KamikazeWeaponPrefab, AircraftBody.transform.position, AircraftBody.transform.rotation);
         StartCoroutine(EnableColliders());

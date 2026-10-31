@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Moves an explosion effect to the left so it drifts with the scrolling scene.
+/// </summary>
 public class ExplosionMover : MonoBehaviour
 {
     public int Speed;

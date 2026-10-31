@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Scrolls the tiled background to the side, slowly speeding up over time.
+/// </summary>
 public class BackgroundMover : MonoBehaviour
 {
     public float ScrollSpeed;
@@ -7,6 +10,8 @@ public class BackgroundMover : MonoBehaviour
     public float AccelerationSpeed;
     private Vector3 startPosition;
 
+    // Restores the starting speed. Called by MenuController on restart; Unity also calls
+    // Reset() in the editor when the component is added or reset in the inspector.
     public void Reset()
     {
         ScrollSpeed = -0.4f;

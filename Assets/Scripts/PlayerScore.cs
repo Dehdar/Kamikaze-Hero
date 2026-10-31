@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Shows the running score in the HUD and adds points to the game statistics.
+/// </summary>
 public class PlayerScore : MonoBehaviour
 {
     public Text Score;

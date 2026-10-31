@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Tilts the tail wing when the player moves up or down (keyboard input).
+/// </summary>
 public class WingMovement : MonoBehaviour
 {
     public GameObject RightWing;

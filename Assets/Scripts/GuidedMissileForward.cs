@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Enemy missile that flies left and steers vertically towards the player
+/// until it passes the middle of the screen.
+/// </summary>
 public class GuidedMissileForward : MonoBehaviour
 {
     public int Speed;

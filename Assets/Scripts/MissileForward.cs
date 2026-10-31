@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Basic enemy missile: flies left in a straight line while spinning.
+/// </summary>
 public class MissileForward : MonoBehaviour
 {
     public int Speed;
