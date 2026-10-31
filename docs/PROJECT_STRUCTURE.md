@@ -45,7 +45,7 @@ The build contains three scenes, in this order (see **File > Build Profiles**):
 
 1. **Menu** – title screen with Start, About and Exit. This is the entry point.
 2. **Game** – the actual game.
-3. **About** – a note from Ali and the credits, with a back arrow to the menu.
+3. **About** – a note from me and the credits, with a back arrow to the menu.
 
 Scenes are switched by name with `SceneManager.LoadScene`, so renaming a scene
 means updating the strings in the menu code.

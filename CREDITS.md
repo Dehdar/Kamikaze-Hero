@@ -1,9 +1,9 @@
 # Credits
 
-Kamikaze Hero was designed and programmed by **Ali Reza Dehdar**
+I designed and programmed Kamikaze Hero. I'm **Ali Reza Dehdar**
 ([@Dehdar](https://github.com/Dehdar)).
 
-If you use this project, please credit Ali by keeping the copyright notice
+If you use this project, please credit me by keeping the copyright notice
 from [LICENSE](LICENSE).
 
 ## Generated assets
@@ -34,8 +34,9 @@ not covered by this project's MIT license.
 
 ## A note on git history
 
-Earlier versions of the game used third-party assets that have since been
-removed (a paid Unity Asset Store effects pack, a demo font, and downloaded
-models, photos and sounds). Those files still exist in older commits of this
-repository. They are not part of the current project and are not covered by
-its license, so do not reuse them from the history.
+I wrote the code, but I did not make any of the assets that earlier versions
+of the game used: a paid Unity Asset Store effects pack, a demo font, and
+downloaded models, photos and sounds. I have replaced all of them. Those files
+still exist in older commits of this repository. They are not part of the
+current project and are not covered by its license, so do not reuse them from
+the history.

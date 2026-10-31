@@ -10,7 +10,7 @@ any other project space.
 
 ## Reporting
 
-If someone's behavior concerns you, contact the maintainer, Ali Reza Dehdar
-([@Dehdar](https://github.com/Dehdar)), privately through GitHub. Reports are
-handled confidentially. The maintainer may remove comments, close issues, or
-block anyone who does not follow this code of conduct.
+If someone's behavior concerns you, contact me, the maintainer, Ali Reza Dehdar
+([@Dehdar](https://github.com/Dehdar)), privately through GitHub. I handle
+reports confidentially, and I may remove comments, close issues, or block
+anyone who does not follow this code of conduct.
