@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -44,7 +44,7 @@ public class MenuController : MonoBehaviour
         {
             AdsManager.ShowInterstitial();
         }
-       
+
         StartText.color = DefaultColor;
         animator.SetTrigger("InitiateGame");
         SceneManager.LoadSceneAsync("Game", LoadSceneMode.Single);

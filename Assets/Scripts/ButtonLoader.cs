@@ -1,56 +1,56 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonLoader : MonoBehaviour
 {
-  public float LoadTime;
-  private Image imageLoader;
-  private bool loadFirstHalfFinished;
-  private bool startLoad;
+    public float LoadTime;
+    private Image imageLoader;
+    private bool loadFirstHalfFinished;
+    private bool startLoad;
 
-  void Start()
-  {
-    imageLoader = GetComponent<Image>();
-  }
-
-  void Update()
-  {
-    if (startLoad)
+    void Start()
     {
-      HandleUnload();
-      HandleReload();
+        imageLoader = GetComponent<Image>();
     }
-  }
 
-  public void LoadButton()
-  {
-    startLoad = true;
-  }
-
-  private void HandleUnload()
-  {
-    if (!loadFirstHalfFinished)
+    void Update()
     {
-      imageLoader.fillAmount -= Time.deltaTime/ LoadTime;
-      if (imageLoader.fillAmount <= 0)
-      {
-        imageLoader.fillClockwise = !imageLoader.fillClockwise;
-        loadFirstHalfFinished = true;
-      }
+        if (startLoad)
+        {
+            HandleUnload();
+            HandleReload();
+        }
     }
-  }
 
-  private void HandleReload()
-  {
-    if (loadFirstHalfFinished)
+    public void LoadButton()
     {
-      imageLoader.fillAmount += Time.deltaTime/ LoadTime;
-      if (imageLoader.fillAmount >= 1)
-      {
-        imageLoader.fillClockwise = !imageLoader.fillClockwise;
-        loadFirstHalfFinished = false;
-        startLoad = false;
-      }
+        startLoad = true;
     }
-  }
+
+    private void HandleUnload()
+    {
+        if (!loadFirstHalfFinished)
+        {
+            imageLoader.fillAmount -= Time.deltaTime/ LoadTime;
+            if (imageLoader.fillAmount <= 0)
+            {
+                imageLoader.fillClockwise = !imageLoader.fillClockwise;
+                loadFirstHalfFinished = true;
+            }
+        }
+    }
+
+    private void HandleReload()
+    {
+        if (loadFirstHalfFinished)
+        {
+            imageLoader.fillAmount += Time.deltaTime/ LoadTime;
+            if (imageLoader.fillAmount >= 1)
+            {
+                imageLoader.fillClockwise = !imageLoader.fillClockwise;
+                loadFirstHalfFinished = false;
+                startLoad = false;
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -95,12 +95,12 @@ public class SpawnManager : MonoBehaviour
         enemiesKilled = Mathf.Floor(enemiesKilled < 1 ? 0 : enemiesKilled);
         var burstsFired = Mathf.Ceil(Statistics.BurstsFired / 3f);
         return String.Format("\nScore: {0}\nEnemies killed: {3}\nEnemies missed: {4}\nBursts fired: {2}\nAccuracy: {1}%\nDied at wave: {5}\n\nVerdict: {6}",
-            Statistics.Score, 
-            (enemiesKilled / (burstsFired < 1 ? 1 : burstsFired) * 100).ToString("F2"), 
+            Statistics.Score,
+            (enemiesKilled / (burstsFired < 1 ? 1 : burstsFired) * 100).ToString("F2"),
             burstsFired,
-            enemiesKilled, 
+            enemiesKilled,
             Mathf.Floor(Statistics.EnemiesMissed),
-            waveNumber, 
+            waveNumber,
             Evaluate(waveNumber));
     }
 
