@@ -13,7 +13,7 @@ not covered by this project's MIT or CC BY 4.0 licenses.
 
 | Asset | Location | Author | License |
 | --- | --- | --- | --- |
-| Background music | `Assets/Sounds/Music.mp3` | Jason Shaw, [Audionautix](https://audionautix.com/) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (track title to be confirmed) |
+| Background music, "Lightning Bugs" | `Assets/Sounds/Music.mp3` | Jason Shaw, [Audionautix](https://audionautix.com/) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | Menu and HUD font | `Assets/Fonts/SmartFont.ttf` | Misti's Fonts | Check the font's own license before reuse |
 
 ## Third-party code
