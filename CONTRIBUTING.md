@@ -55,8 +55,7 @@ Follow the style of the surrounding code:
 
 ## Licensing of contributions
 
-By contributing, you agree that your code is licensed under the
-[MIT License](LICENSE) and your assets under
-[CC BY 4.0](LICENSE-ASSETS.md), the same as the rest of the project. Only
+By contributing, you agree that your contribution is licensed under the
+[MIT License](LICENSE), the same as the rest of the project. Only
 contribute assets you made yourself or that are under a license compatible
 with reuse, and add third-party assets to [CREDITS.md](CREDITS.md).

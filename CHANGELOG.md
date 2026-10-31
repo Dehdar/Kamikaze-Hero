@@ -11,8 +11,7 @@ after what they did. The in-game bundle version is still `1.0.1.1`.
 Preparing the repository so anyone can learn from it or build on it.
 
 ### Added
-- MIT license for the code (`LICENSE`) and CC BY 4.0 for Ali's own assets
-  (`LICENSE-ASSETS.md`): free to use in any context, with credit to Ali.
+- MIT license (`LICENSE`): free to use in any context, with credit to Ali.
 - `CREDITS.md` listing third-party content and its licenses.
 - `README.md` explaining why the project is public, how to play, and how to
   open and build it.

@@ -3,13 +3,13 @@
 Kamikaze Hero was designed and programmed by **Ali Reza Dehdar**
 ([@Dehdar](https://github.com/Dehdar)).
 
-If you use this project, please credit Ali as described in [LICENSE](LICENSE)
-(code) and [LICENSE-ASSETS.md](LICENSE-ASSETS.md) (assets).
+If you use this project, please credit Ali by keeping the copyright notice
+from [LICENSE](LICENSE).
 
 ## Third-party assets
 
 These assets were made by others and are used under their own terms. They are
-not covered by this project's MIT or CC BY 4.0 licenses.
+not covered by this project's MIT license.
 
 | Asset | Location | Author | License |
 | --- | --- | --- | --- |

@@ -15,8 +15,7 @@ Kamikaze-Hero/
 ├── docs/              Developer documentation (this file)
 ├── README.md          What the project is and how to open it
 ├── CHANGELOG.md       History of features added and removed
-├── LICENSE            MIT license for the code
-├── LICENSE-ASSETS.md  CC BY 4.0 license for Ali's own assets
+├── LICENSE            MIT license for the project
 └── CREDITS.md         Authors and licenses of third-party content
 ```
 
