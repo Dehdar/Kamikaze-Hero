@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Put on enemies: handles being hit by a bullet (score + explosion) or hitting the player (game over).
@@ -6,6 +7,8 @@ using UnityEngine;
 public class Impact : MonoBehaviour
 {
     public GameObject ExplosionAnimation;
+    // FormerlySerializedAs keeps prefabs saved with the old misspelled name working.
+    [FormerlySerializedAs("PlayerExplosionAnmiation")]
     public GameObject PlayerExplosionAnimation;
     public int Score;
     private GameManager gameManager;
