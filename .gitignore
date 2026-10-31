@@ -58,3 +58,7 @@ _ReSharper.*
 .vscode/
 *.slnx
 /kh-*.log
+
+# Personal Unity Ads game IDs (see Assets/Scripts/UnityAdsSettings.cs)
+/Assets/Resources/UnityAdsSettings.asset
+/Assets/Resources/UnityAdsSettings.asset.meta

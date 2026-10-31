@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-// Unity Ads 4.x replacement for the built-in Ads service of Unity 5.4 (Advertisement.IsReady/Show()).
+/// <summary>
+/// Shows Unity Ads interstitials (Unity Ads 4.x API). Ads are only enabled when a
+/// UnityAdsSettings asset with a game ID exists; see UnityAdsSettings for setup.
+/// </summary>
 public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    private const string AndroidGameId = "1246863";
-    private const string IosGameId = "1246864";
     // "video" is the default skippable placement created for Unity Ads games of this age.
     private const string InterstitialPlacementId = "video";
 
@@ -19,7 +20,14 @@ public class AdsManager : IUnityAdsInitializationListener, IUnityAdsLoadListener
             return;
         }
 
-        var gameId = Application.platform == RuntimePlatform.IPhonePlayer ? IosGameId : AndroidGameId;
+        var settings = UnityAdsSettings.Load();
+        var gameId = settings != null ? settings.GetGameIdForCurrentPlatform() : null;
+        if (string.IsNullOrEmpty(gameId))
+        {
+            Debug.Log("Unity Ads disabled: no game ID configured. See UnityAdsSettings.cs to enable ads.");
+            return;
+        }
+
         Advertisement.Initialize(gameId, Debug.isDebugBuild, instance);
     }
 
