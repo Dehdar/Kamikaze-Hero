@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
-
     }
 
     void FixedUpdate()

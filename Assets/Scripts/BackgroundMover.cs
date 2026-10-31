@@ -9,7 +9,6 @@ public class BackgroundMover : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("hah");
         ScrollSpeed = -0.4f;
         AccelerationSpeed = -0.02f;
     }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class WingMovement : MonoBehaviour
 {
-    //public GameObject LeftWing;
     public GameObject RightWing;
     public int RotateAngle;
     private Quaternion rotateSeed;
@@ -14,7 +13,6 @@ public class WingMovement : MonoBehaviour
 
     void Update()
     {
-        //RotateWing(LeftWing);
         RotateWing(RightWing);
     }
 
@@ -24,7 +22,6 @@ public class WingMovement : MonoBehaviour
         if (vertical != 0)
         {
             tail.transform.rotation = rotateSeed * Quaternion.AngleAxis(vertical * RotateAngle, Vector3.right);
-            //0, -0.7, 0, 0.7
         }
     }
 }

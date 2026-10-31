@@ -15,9 +15,4 @@ public class EmailScript : MonoBehaviour
     {
         return UnityWebRequest.EscapeURL(url).Replace("+", "%20");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

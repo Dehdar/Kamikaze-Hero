@@ -18,18 +18,15 @@ public class AudioController : MonoBehaviour
             DontDestroyOnLoad(audioComponent);
             audioSource = GetComponent<AudioSource>();
             audioSource.Play();
-            DontDestroyOnLoad(gameObject);
             isAudioPlaying = true;
             StartCoroutine(LongRunningMusicManager());
         }
     }
 
-
     IEnumerator LongRunningMusicManager()
     {
         while (true)
         {
-
             if (isAudioPlaying && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Game") && SpawnManager.PlayMusic == false)
             {
                 audioSource.Stop();
