@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionAnimation: {fileID: 1000010831185340, guid: 19c39446b3c6e5247b23287c108430c4, type: 3}
-  PlayerExplosionAnmiation: {fileID: 1000010174558980, guid: e3573152ba93602498b6d304b58b00ae, type: 3}
+  PlayerExplosionAnimation: {fileID: 1000010174558980, guid: e3573152ba93602498b6d304b58b00ae, type: 3}
   Score: 300
 --- !u!82 &82000011300863582
 AudioSource:

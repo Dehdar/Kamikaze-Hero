@@ -2933,7 +2933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScrollSpeed: -0.4
-  TilSizeZ: 71.2
+  TileSize: 71.2
   AccelerationSpeed: -0.02
 --- !u!1 &1816073974
 GameObject:

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Impact : MonoBehaviour
 {
     public GameObject ExplosionAnimation;
-    public GameObject PlayerExplosionAnmiation;
+    public GameObject PlayerExplosionAnimation;
     public int Score;
     private GameManager gameManager;
     private PlayerScore playerScore;
@@ -26,14 +26,14 @@ public class Impact : MonoBehaviour
 
         if (other.CompareTag(Tags.Bullet))
         {
-            playerScore.SetPlayerScore(Score);
+            playerScore.AddScore(Score);
             var animationObject = Instantiate(ExplosionAnimation, other.transform.position, other.transform.rotation);
             Destroy(animationObject, 2f);
         }
 
         if (other.CompareTag(Tags.Player))
         {
-            var animationObject = Instantiate(PlayerExplosionAnmiation, other.transform.position, other.transform.rotation);
+            var animationObject = Instantiate(PlayerExplosionAnimation, other.transform.position, other.transform.rotation);
             Destroy(animationObject, 2f);
             gameManager.KillPlayer();
         }

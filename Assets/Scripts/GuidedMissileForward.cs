@@ -6,13 +6,13 @@ public class GuidedMissileForward : MonoBehaviour
     public int GuideSpeed;
     private Rigidbody missileRigidbody;
     private Rigidbody playerRigidbody;
-    private float tolerence;
+    // Vertical dead zone so the missile does not jitter once it is level with the player.
+    private const float Tolerance = 0.1f;
     private GameManager gameManager;
     private GameObject player;
 
     void Start()
     {
-        tolerence = 0.1f;
         missileRigidbody = GetComponent<Rigidbody>();
         gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
         player = GameObject.FindGameObjectWithTag(Tags.Player);
@@ -45,12 +45,12 @@ public class GuidedMissileForward : MonoBehaviour
         var missileCoordinateY = missileRigidbody.transform.position.y;
         var missileNewCoordinateY = 0f;
 
-        if (playerCoordinateY - tolerence > missileCoordinateY)
+        if (playerCoordinateY - Tolerance > missileCoordinateY)
         {
             missileNewCoordinateY = 1;
         }
 
-        if (playerCoordinateY + tolerence < missileCoordinateY)
+        if (playerCoordinateY + Tolerance < missileCoordinateY)
         {
             missileNewCoordinateY = -1;
         }

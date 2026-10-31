@@ -3,7 +3,7 @@ using UnityEngine;
 public class BackgroundMover : MonoBehaviour
 {
     public float ScrollSpeed;
-    public float TilSizeZ;
+    public float TileSize;
     public float AccelerationSpeed;
     private Vector3 startPosition;
 
@@ -21,7 +21,7 @@ public class BackgroundMover : MonoBehaviour
     void Update()
     {
         ScrollSpeed += AccelerationSpeed * Time.deltaTime;
-        float newPosition = Mathf.Repeat(Time.time * ScrollSpeed, TilSizeZ);
+        float newPosition = Mathf.Repeat(Time.time * ScrollSpeed, TileSize);
         transform.position = startPosition + Vector3.right * newPosition;
     }
 }

@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private float shootDelayTime;
     private float burstDelayTime;
     private float lightDurationTime = 0.2f;
-    private Light GunBarrelRightLight;
+    private Light gunBarrelLight;
     private FireController fireController;
     private int burstCapacity;
     private int shotsFired;
@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         boxColliders = GetComponentsInParent<BoxCollider>();
         shootDelayTime = Time.time;
         burstDelayTime = Time.time;
-        GunBarrelRightLight = GunBarrelRight.GetComponent<Light>();
+        gunBarrelLight = GunBarrelRight.GetComponent<Light>();
         fireController = GameObject.FindGameObjectWithTag(Tags.FireController).GetComponent<FireController>();
         kamikazeController = GameObject.FindGameObjectWithTag(Tags.KamikazeController).GetComponent<KamikazeController>();
         buttonLoader = GameObject.FindGameObjectWithTag(Tags.KamikazeButton).GetComponent<ButtonLoader>();
@@ -100,12 +100,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void EnableLightEffect()
     {
-        GunBarrelRightLight.enabled = true;
+        gunBarrelLight.enabled = true;
     }
 
     private void DisableLightEffect()
     {
-        GunBarrelRightLight.enabled = false;
+        gunBarrelLight.enabled = false;
     }
 
     private void Reload()

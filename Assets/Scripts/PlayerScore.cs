@@ -12,10 +12,10 @@ public class PlayerScore : MonoBehaviour
         UpdateScoreText();
     }
 
-    public void SetPlayerScore(int addScore)
+    public void AddScore(int points)
     {
-        Statistics.Score += addScore;
-        playerScore += addScore;
+        Statistics.Score += points;
+        playerScore += points;
         UpdateScoreText();
     }
 
