@@ -1,0 +1,107 @@
+# Kamikaze Hero
+
+A side-scrolling arcade shooter for Android, made with Unity. You fly a small
+propeller plane through 20 waves of incoming missiles. Shoot them down, dodge
+the guided ones, and use your kamikaze weapon when things get out of hand.
+
+## Why this repository exists
+
+This was a hobby project, and my first game. Years after I made it, I used
+[Claude Code](https://claude.ai/code) to migrate it to the latest version of
+Unity and clean up the project, so that others might be able to use it for
+learning or for their own projects.
+
+Take whatever is useful to you. All the best.
+
+*Ali*
+
+## Gameplay
+
+- **20 waves** of enemies. Waves get longer, faster and more varied as you go;
+  from wave 12 enemies come in pairs, and wave 20 throws 200 at you.
+- **Three enemy types**
+  - *Missile*: flies straight at you.
+  - *Guided missile*: locks on to your altitude once it crosses the middle of
+    the screen.
+  - *Multi-missile*: a cluster of missiles in one formation.
+- **Machine gun** fires three-shot bursts.
+- **Kamikaze weapon**: a powerful special attack with a cooldown, shown on the
+  button as a radial timer. You are briefly invulnerable while it fires.
+- **End-of-game report** with score, kills, misses, accuracy, the wave you
+  reached, and a verdict from "n00b" to "GOD".
+
+### Controls
+
+| | Android | Unity Editor |
+| --- | --- | --- |
+| Move | Drag anywhere on the screen | Arrow keys or WASD |
+| Fire | Hold the fire button | Click the fire button |
+| Kamikaze weapon | Tap the kamikaze button | Click the kamikaze button |
+
+## Getting started
+
+### Requirements
+
+- **Unity 6000.6.7f1** (Unity 6.6). Install it through
+  [Unity Hub](https://unity.com/download). Other Unity 6 versions may work but
+  are not tested.
+- **Android Build Support** module (with OpenJDK and Android SDK/NDK) if you
+  want to build for a phone.
+
+### Open the project
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Dehdar/Kamikaze-Hero.git
+   ```
+2. In Unity Hub, choose **Add > Add project from disk** and select the cloned
+   folder.
+3. Open it with Unity 6000.6.7f1. The first import takes a few minutes while
+   Unity rebuilds the `Library` folder.
+4. Open `Assets/Scene/Menu.unity` and press **Play**.
+
+### Build for Android
+
+1. **File > Build Profiles**, select **Android** and switch platform.
+2. Connect a device with USB debugging enabled, then **Build And Run**.
+
+The project is already set up for IL2CPP with ARMv7 and ARM64.
+
+### Ads
+
+The game shows a Unity Ads interstitial every third game. The ad IDs in
+`Assets/Scripts/AdsManager.cs` belong to the original release. If you publish
+your own build, create your own Unity Ads project and replace them, or remove
+the ad calls in `MenuController`.
+
+## Project structure
+
+See [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md) for a tour of the
+folders, scenes and scripts, and how a game session flows through them.
+
+## History
+
+See [CHANGELOG.md](CHANGELOG.md) for what was added, changed and removed over
+the life of the project.
+
+## Contributing
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and
+the [Code of Conduct](CODE_OF_CONDUCT.md). To report a security problem, see
+[SECURITY.md](SECURITY.md).
+
+## License and credit
+
+Kamikaze Hero is free to use in any context, including commercial projects.
+The one thing asked in return is credit.
+
+- **Code** is licensed under the [MIT License](LICENSE). Keep the copyright
+  notice with any copy of the code.
+- **Ali's own assets** are licensed under
+  [CC BY 4.0](LICENSE-ASSETS.md). Credit Ali Reza Dehdar when you use them.
+- **Third-party assets** keep their own licenses. See
+  [CREDITS.md](CREDITS.md) before reusing them.
+
+A line like this in your credits, README or store page is perfect:
+
+> Based on Kamikaze Hero by Ali Reza Dehdar — https://github.com/Dehdar/Kamikaze-Hero
