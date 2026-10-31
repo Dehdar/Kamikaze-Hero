@@ -1,33 +1,70 @@
-using System;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Runs the game loop in the Game scene: spawns enemy waves, shows the wave banner,
+/// and shows the end screen with the player's statistics when the run ends.
+/// </summary>
 public class SpawnManager : MonoBehaviour
 {
     public float StartDelay;
     public float WaveDelay;
     public float SpawnDelayFactor;
     public int MaxWaves;
+    // Enemy prefabs in unlock order: later entries only appear in later waves (see GetRandomEnemyIndex).
     public List<Object> Enemies;
     public Text WaveNumberText;
     public Statistics Statistics;
+
+    // Read by AudioController: music is muted while waves are running.
+    public static bool PlayMusic = false;
+
+    // From this wave on, two enemies spawn at once: one in each half of the screen.
+    private const int DoubleSpawnFromWave = 12;
+    // Enemies always spawn just off the right edge of the screen.
+    private const float SpawnX = 16.5f;
+    private const float SpawnZ = -0.9f;
+
+    private enum SpawnArea { Upper, Lower, Full }
+
+    /// <summary>
+    /// Vertical spawn limits per enemy, tuned by hand so each model stays fully on screen.
+    /// Middle is where the screen is split into upper and lower halves for double spawns.
+    /// </summary>
+    private static readonly Dictionary<string, (float Bottom, float Middle, float Top)> SpawnHeights =
+        new Dictionary<string, (float, float, float)>
+        {
+            [Tags.Missile] = (-4.19f, 0.48f, 5.15f),
+            [Tags.GuidedMissile] = (-4.83f, -0.135f, 4.56f),
+            [Tags.MultiMissile] = (-4.60f, -0.675f, 3.25f),
+        };
+
+    /// <summary>End-screen verdicts, checked from the top: the first entry whose wave is reached wins.</summary>
+    private static readonly (int MinWave, string Verdict)[] Verdicts =
+    {
+        (18, "Unbelievable"),
+        (15, "Insanely skilled"),
+        (13, "Elite"),
+        (11, "Kamikaze"),
+        (9, "Journeyman"),
+        (6, "Average Joe"),
+        (3, "Babysitter"),
+    };
+
     private GameManager gameManager;
-    private int waveNumber;
-    private enum HorizontalSpace { Up, Down, Full };
     private Animator waveAnimator;
-    static public bool PlayMusic = false;
+    private int waveNumber;
 
     void Start()
     {
         waveNumber = 1;
         waveAnimator = GameObject.FindGameObjectWithTag(Tags.Menu).GetComponent<Animator>();
         gameManager = GameObject.FindGameObjectWithTag(Tags.GameManager).GetComponent<GameManager>();
-        WaveNumberText.text = "WAVE " + waveNumber + "/" + MaxWaves;
-        waveAnimator.SetTrigger("DisplayWave");
+        ShowWaveBanner();
         StartCoroutine(SpawnWaves());
     }
 
@@ -38,25 +75,26 @@ public class SpawnManager : MonoBehaviour
 
         while (gameManager.IsPlayerAlive() && waveNumber <= MaxWaves)
         {
-            for (var i = 0; i < GetNumberOfEnemiesInWaves(); i++)
+            for (var i = 0; i < GetNumberOfEnemiesInWave(); i++)
             {
-                if (waveNumber >= 12)
+                if (waveNumber >= DoubleSpawnFromWave)
                 {
-                    SpawnRandomEnemy(HorizontalSpace.Up);
-                    SpawnRandomEnemy(HorizontalSpace.Down);
+                    SpawnRandomEnemy(SpawnArea.Upper);
+                    SpawnRandomEnemy(SpawnArea.Lower);
                 }
                 else
                 {
-                    SpawnRandomEnemy(HorizontalSpace.Full);
+                    SpawnRandomEnemy(SpawnArea.Full);
                 }
                 yield return new WaitForSeconds(GetSpawnDelay());
                 if (!gameManager.IsPlayerAlive()) { break; }
             }
             if (!gameManager.IsPlayerAlive()) { break; }
-            WaveNumberText.text = "WAVE " + ++waveNumber + "/" + MaxWaves;
-            waveAnimator.SetTrigger("DisplayWave");
+            waveNumber++;
+            ShowWaveBanner();
             yield return new WaitForSeconds(WaveDelay);
         }
+
         PlayMusic = true;
         if (gameManager.IsPlayerAlive())
         {
@@ -66,6 +104,12 @@ public class SpawnManager : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    private void ShowWaveBanner()
+    {
+        WaveNumberText.text = "WAVE " + waveNumber + "/" + MaxWaves;
+        waveAnimator.SetTrigger("DisplayWave");
     }
 
     private void GameCompleted()
@@ -81,10 +125,15 @@ public class SpawnManager : MonoBehaviour
         AnimateEndGame();
     }
 
-    private void SetScore(bool survived)
+    private static GameObject FindGameOverPanel()
     {
         var menu = GameObject.FindGameObjectWithTag(Tags.Menu);
-        var gameOver = menu.transform.Find("GameOver").gameObject;
+        return menu.transform.Find("GameOver").gameObject;
+    }
+
+    private void SetScore(bool survived)
+    {
+        var gameOver = FindGameOverPanel();
         gameOver.transform.Find("GameOverText").GetComponent<Text>().text = survived ? "Game Complete" : "Game Over";
         gameOver.transform.Find("GameOverScore").GetComponent<Text>().text = ResolveScore();
     }
@@ -93,50 +142,32 @@ public class SpawnManager : MonoBehaviour
     {
         var enemiesKilled = Statistics.EnemiesSpawned - Statistics.EnemiesMissed - 1;
         enemiesKilled = Mathf.Floor(enemiesKilled < 1 ? 0 : enemiesKilled);
+        // PlayerAttack counts single shots; the stats screen reports 3-shot bursts.
         var burstsFired = Mathf.Ceil(Statistics.BurstsFired / 3f);
-        return String.Format("\nScore: {0}\nEnemies killed: {3}\nEnemies missed: {4}\nBursts fired: {2}\nAccuracy: {1}%\nDied at wave: {5}\n\nVerdict: {6}",
-            Statistics.Score,
-            (enemiesKilled / (burstsFired < 1 ? 1 : burstsFired) * 100).ToString("F2"),
-            burstsFired,
-            enemiesKilled,
-            Mathf.Floor(Statistics.EnemiesMissed),
-            waveNumber,
-            Evaluate(waveNumber));
+        var accuracy = (enemiesKilled / (burstsFired < 1 ? 1 : burstsFired) * 100).ToString("F2");
+
+        return "\nScore: " + Statistics.Score
+            + "\nEnemies killed: " + enemiesKilled
+            + "\nEnemies missed: " + Mathf.Floor(Statistics.EnemiesMissed)
+            + "\nBursts fired: " + burstsFired
+            + "\nAccuracy: " + accuracy + "%"
+            + "\nDied at wave: " + waveNumber
+            + "\n\nVerdict: " + Evaluate(waveNumber);
     }
 
-    private string Evaluate(int rank)
+    private static string Evaluate(int wave)
     {
-        if (rank == 20)
+        if (wave == 20)
         {
             return "GOD";
         }
-        if (rank >= 18)
+
+        foreach (var (minWave, verdict) in Verdicts)
         {
-            return "Unbelievable";
-        }
-        if (rank >= 15)
-        {
-            return "Insanely skilled";
-        }
-        if (rank >= 13)
-        {
-            return "Elite";
-        }
-        if (rank >= 11)
-        {
-            return "Kamikaze";
-        }
-        if (rank >= 9)
-        {
-            return "Journeyman";
-        }
-        if (rank >= 6)
-        {
-            return "Average Joe";
-        }
-        if (rank >= 3)
-        {
-            return "Babysitter";
+            if (wave >= minWave)
+            {
+                return verdict;
+            }
         }
 
         return "n00b";
@@ -144,8 +175,7 @@ public class SpawnManager : MonoBehaviour
 
     private static void AnimateEndGame()
     {
-        var menu = GameObject.FindGameObjectWithTag(Tags.Menu);
-        var gameOver = menu.transform.Find("GameOver").gameObject;
+        var gameOver = FindGameOverPanel();
         if (gameOver != null)
         {
             gameOver.SetActive(true);
@@ -155,16 +185,15 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private void SpawnRandomEnemy(HorizontalSpace horizontalSpace)
+    private void SpawnRandomEnemy(SpawnArea area)
     {
-        var randomEnemy = Enemies[GetShuffleNumber()];
-        var position = new Vector3(16.5f, GetRandomEnemyHorizontalRange(randomEnemy, horizontalSpace), -0.9f);
-        var rotation = Quaternion.AngleAxis(0, Vector3.down);
+        var randomEnemy = Enemies[GetRandomEnemyIndex()];
+        var position = new Vector3(SpawnX, GetRandomSpawnHeight(randomEnemy, area), SpawnZ);
         Statistics.EnemiesSpawned++;
-        Instantiate(randomEnemy, position, rotation);
+        Instantiate(randomEnemy, position, Quaternion.identity);
     }
 
-    private int GetNumberOfEnemiesInWaves()
+    private int GetNumberOfEnemiesInWave()
     {
         if (waveNumber == 20)
             return 200;
@@ -174,7 +203,8 @@ public class SpawnManager : MonoBehaviour
         return waveNumber + 5;
     }
 
-    private int GetShuffleNumber()
+    /// <summary>Waves 1-2 only use the first enemy type, waves 3-5 the first two, wave 6+ all three.</summary>
+    private int GetRandomEnemyIndex()
     {
         if (waveNumber >= 6)
             return Random.Range(0, 3);
@@ -190,41 +220,25 @@ public class SpawnManager : MonoBehaviour
         {
             return 1f;
         }
+        // Integer division on purpose: the delay drops by one second every 10 waves.
         return SpawnDelayFactor - waveNumber / 10;
     }
 
-    private static float GetRandomEnemyHorizontalRange(Object enemy, HorizontalSpace horizontalSpace)
+    private static float GetRandomSpawnHeight(Object enemy, SpawnArea area)
     {
-        if (horizontalSpace == HorizontalSpace.Full)
+        if (!SpawnHeights.TryGetValue(((GameObject)enemy).tag, out var heights))
         {
-            if (((GameObject)enemy).CompareTag(Tags.Missile))
-                return Random.Range(-4.19f, 5.15f);
-            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
-                return Random.Range(-4.83f, 4.56f);
-            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
-                return Random.Range(-4.60f, 3.25f);
+            return Random.Range(-4f, 3f);
         }
 
-        if (horizontalSpace == HorizontalSpace.Up)
+        switch (area)
         {
-            if (((GameObject)enemy).CompareTag(Tags.Missile))
-                return Random.Range(0.48f, 5.15f);
-            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
-                return Random.Range(-0.135f, 4.56f);
-            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
-                return Random.Range(-0.675f, 3.25f);
+            case SpawnArea.Upper:
+                return Random.Range(heights.Middle, heights.Top);
+            case SpawnArea.Lower:
+                return Random.Range(heights.Bottom, heights.Middle);
+            default:
+                return Random.Range(heights.Bottom, heights.Top);
         }
-
-        if (horizontalSpace == HorizontalSpace.Down)
-        {
-            if (((GameObject)enemy).CompareTag(Tags.Missile))
-                return Random.Range(-4.19f, 0.48f);
-            if (((GameObject)enemy).CompareTag(Tags.GuidedMissile))
-                return Random.Range(-4.83f, -0.135f);
-            if (((GameObject)enemy).CompareTag(Tags.MultiMissile))
-                return Random.Range(-4.60f, -0.675f);
-        }
-
-        return Random.Range(-4f, 3f);
     }
 }
